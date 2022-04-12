@@ -84,6 +84,24 @@
 				<image :src="item.image" class="details_img_i"></image>
 			</view>
 		</view>
+		<view class="buttom">
+			<view class="shop">
+				<u-icon  size="40" :name="this.img[0].src"></u-icon>
+				<view class="text">
+					店铺
+				</view>
+			</view>
+			<view class="uicon-shopping-cart" @click="onCart()">
+				<u-badge type="error" :count="this.schoppingCart" class="goosnum"></u-badge>
+				<u-icon  size="40" :name="this.img[1].src"></u-icon>
+				<view class="text" >
+					购物车
+				</view>
+			</view>
+			<view class="uicon-shopping-cart-button">
+				加入购物车
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -94,7 +112,6 @@
 				list: [
 						{
 							image: 'http://xiaoyuaichitang.xyz/view.php/884ece8fe0651f1f453719e36be90c8c.jpg',
-							id: '1'
 						},
 						{
 							image: 'http://xiaoyuaichitang.xyz/view.php/4e6cf49d000c069349e9060c0855b3da.jpg',
@@ -118,6 +135,21 @@
 						number: 'HI5589',
 						price:'849'
 					},
+				img: [
+					{
+						name: '店铺',
+						src:'http://xiaoyuaichitang.xyz/view.php/a1be79edcd412a464397f6b8868a7cd1.png'
+					},
+					{
+						name: '购物车',
+						src: 'http://xiaoyuaichitang.xyz/view.php/340024d653ce9b06c602c8a5e23a1296.png'
+					},
+					{	
+						name: '分享',
+						src:'http://xiaoyuaichitang.xyz/view.php/5b992882db442f3e9295eec5834dc6ae.png'
+					}
+				],
+				schoppingCart:'2',
 				size:
 					{
 						name:'默认尺码',
@@ -152,6 +184,7 @@
 				map:{
 					name:'滔博西安赛格Adidas'
 				}
+				
 			}
 		},
 		computed: {
@@ -159,7 +192,16 @@
 		},
 		
 		methods: {
-			
+			onCart() {
+
+				// 跳转到购物车
+				uni.navigateTo({
+					url: '../../pages/example/goosCar'
+				})
+				// console.log(index)
+				// uni.preloadPage({url: "/pages/example/goosCar"});
+				// uni.preloadPage({url: "/pages/example/goosCar"});
+			}
 		}
 	}
 </script>
@@ -169,7 +211,9 @@
 </style>
 
 <style lang="scss" scoped>
-	
+	uni-page-body{
+		height: 100%;
+	}
 	.u-cell-icon {
 		width: 36rpx;
 		height: 36rpx;
@@ -177,7 +221,59 @@
 	}
 	.main{
 		background-color:#F5F5F5 ;
-		height: 1430rpx;
+		// height: 1430rpx;
+		height: 100%;
+		position: relative;
+		.buttom{
+			position: fixed;
+			bottom: 0;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: nowrap;
+			justify-content: space-evenly;
+			align-items: center;
+			background-color: #fff;
+			height: 100rpx;
+			width: 100%;
+			.shop{
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				.icon{
+					uni-img{
+						width: 20rpx;
+						height: 20rpx;
+					}
+					height: 50rpx;
+				}
+			}
+			.goosnum{
+				top: 0 !important;
+				right: 0 !important;
+			}
+			.uicon-shopping-cart{
+				position: relative;
+				font-size: 12rpx;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				.icon{
+					uni-img{
+						width: 20rpx;
+						height: 20rpx;
+					}
+					height: 50rpx;
+				}
+				
+			}
+			.uicon-shopping-cart-button{
+				width: 400rpx;
+				height: 70rpx;
+				line-height: 70rpx;
+				text-align: center;
+				background-color: #F8C02F;
+			}
+		}
 	}
 	.wrap {
 		height: 500rpx;
