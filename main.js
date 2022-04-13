@@ -31,6 +31,9 @@ import English from '@/common/locales/en.js';
 // VueI18n
 import VueI18n from '@/common/vue-i18n.min.js';
 
+// 引入字体图标
+import './style/icon.css'
+
 // VueI18n
 Vue.use(VueI18n);
 

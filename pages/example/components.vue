@@ -91,7 +91,7 @@
 					店铺
 				</view>
 			</view>
-			<view class="uicon-shopping-cart" @click="onCart()">
+			<view class="uicon-shopping-cart" @click="onCart(1)">
 				<u-badge type="error" :count="this.schoppingCart" class="goosnum"></u-badge>
 				<u-icon  size="40" :name="this.img[1].src"></u-icon>
 				<view class="text" >

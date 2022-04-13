@@ -20,4 +20,7 @@
 <style lang="scss">
 	@import "uview-ui/index.scss";
 	@import "common/demo.scss";
+	.u-drawer-bottom[data-v-17becaea]{
+		background: transparent !important;
+	}
 </style>

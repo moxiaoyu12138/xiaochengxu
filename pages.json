@@ -26,7 +26,24 @@
 			}
 		}
 		
-	],
+	    ,{
+            "path" : "pages/user/user",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "个人中心"
+            }
+            
+        }
+        
+        ,{
+            "path" : "pages/example/size/size",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "size"
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uView",
