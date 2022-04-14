@@ -1,76 +1,189 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* page {
-	background-color: rgb(240, 242, 244);
-} */
-
 @charset "UTF-8";
 /**
  * 下方引入的为uView UI的集成样式文件，为scss预处理器，其中包含了一些"u-"开头的自定义变量
  * 使用的时候，请将下面的一行复制到您的uniapp项目根目录的uni.scss中即可
  * uView自定义的css类名和scss变量，均以"u-"开头，不会造成冲突，请放心使用 
  */
+uni-page-body.data-v-6f423f94 {
+  height: 100%;
+}
 .u-cell-icon.data-v-6f423f94 {
   width: 36rpx;
   height: 36rpx;
   margin-right: 8rpx;
+}
+.main.data-v-6f423f94 {
+  background-color: #F5F5F5;
+  height: 100%;
+  position: relative;
+}
+.main .buttom.data-v-6f423f94 {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #fff;
+  height: 100rpx;
+  width: 100%;
+}
+.main .buttom .shop.data-v-6f423f94 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.main .buttom .shop .icon.data-v-6f423f94 {
+  height: 50rpx;
+}
+.main .buttom .shop .icon uni-img.data-v-6f423f94 {
+  width: 20rpx;
+  height: 20rpx;
+}
+.main .buttom .goosnum.data-v-6f423f94 {
+  top: 0 !important;
+  right: 0 !important;
+}
+.main .buttom .uicon-shopping-cart.data-v-6f423f94 {
+  position: relative;
+  font-size: 12rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.main .buttom .uicon-shopping-cart .icon.data-v-6f423f94 {
+  height: 50rpx;
+}
+.main .buttom .uicon-shopping-cart .icon uni-img.data-v-6f423f94 {
+  width: 20rpx;
+  height: 20rpx;
+}
+.main .buttom .uicon-shopping-cart-button.data-v-6f423f94 {
+  width: 400rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  text-align: center;
+  background-color: #F8C02F;
+}
+.wrap.data-v-6f423f94 {
+  height: 500rpx;
+}
+.content.data-v-6f423f94 {
+  height: 500rpx;
+}
+.content ._img.data-v-6f423f94 {
+  height: 500rpx;
+}
+.content.data-v-6f423f94 :nth-child(1) {
+  height: 100% !important;
+}
+.u-swiper-indicator.data-v-6f423f94 {
+  width: 60rpx;
+}
+.u-indicator-item-rect[data-v-a5b2d580].data-v-6f423f94 {
+  width: 60rpx;
+}
+.goods_inf.data-v-6f423f94 {
+  height: 240rpx;
+  background-color: #FFFFFF;
+  padding: 30rpx 10rpx 10rpx 20rpx;
+}
+.goods_inf .left.data-v-6f423f94 {
+  padding-left: 10rpx;
+  width: 550rpx;
+  height: 220rpx;
+}
+.goods_inf .left .title.data-v-6f423f94 {
+  line-height: 50rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+}
+.goods_inf .left .goods_inf_number.data-v-6f423f94 {
+  margin-top: 10rpx;
+  font-size: 18rpx;
+  color: #8C8C8C;
+}
+.goods_inf .left .goods_inf_price.data-v-6f423f94 {
+  margin-top: 20rpx;
+  color: #C53622;
+}
+.server.data-v-6f423f94 {
+  margin-top: 20rpx;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  height: 300rpx;
+  background-color: pink;
+}
+.server .server_coupon.data-v-6f423f94 {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 40rpx;
+  width: 100%;
+  height: 100rpx;
+  background-color: #fff;
+  line-height: 100rpx;
+  border-bottom: 1rpx solid #EFEFEF;
+}
+.server .server_coupon .u-size-default.data-v-6f423f94 {
+  margin-right: 10rpx;
+}
+.server .server_coupon .server_coupon_right.data-v-6f423f94 {
+  display: flex;
+  align-items: center;
+}
+.server .server_coupon .server_coupon_right .coupon.data-v-6f423f94 {
+  margin-right: 10rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  font-size: 10rpx;
+  border: 1rpx solid #F8C02F;
+  color: #F8C02F;
+}
+.server .server_coupon .server_coupon_right .server_coupon_right_text.data-v-6f423f94 {
+  font-size: 10rpx;
+}
+.map.data-v-6f423f94 {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10rpx;
+  padding: 20rpx;
+  height: 100rpx;
+  line-height: 60rpx;
+  background-color: #fff;
+}
+.map .map_left.data-v-6f423f94 {
+  display: flex;
+}
+.map .map_left .name.data-v-6f423f94 {
+  margin-left: 20rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+}
+.map .map_right.data-v-6f423f94 {
+  display: flex;
+}
+.map .map_right .text.data-v-6f423f94 {
+  margin-right: 10rpx;
+}
+.details.data-v-6f423f94 {
+  margin-bottom: 500rpx;
+}
+.details .details_top.data-v-6f423f94 {
+  margin-top: 10rpx;
+  padding: 30rpx;
+  background-color: #fff;
+  font-weight: 600;
+  font-size: 35rpx;
+}
+.details .details_img.data-v-6f423f94 {
+  height: 800rpx;
+  background-color: pink;
+}
+.details .details_img .details_img_i.data-v-6f423f94 {
+  width: 100%;
+  height: 100%;
 }
 

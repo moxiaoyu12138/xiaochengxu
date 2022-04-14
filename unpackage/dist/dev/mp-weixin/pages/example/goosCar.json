@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "购物车",
+  "usingComponents": {
+    "u-icon": "/uview-ui/components/u-icon/u-icon",
+    "u-number-box": "/uview-ui/components/u-number-box/u-number-box",
+    "u-popup": "/uview-ui/components/u-popup/u-popup",
+    "size-popup": "/pages/example/size/size"
+  }
+}

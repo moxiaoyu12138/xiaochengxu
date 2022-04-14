@@ -1,0 +1,184 @@
+@charset "UTF-8";
+/**
+ * 下方引入的为uView UI的集成样式文件，为scss预处理器，其中包含了一些"u-"开头的自定义变量
+ * 使用的时候，请将下面的一行复制到您的uniapp项目根目录的uni.scss中即可
+ * uView自定义的css类名和scss变量，均以"u-"开头，不会造成冲突，请放心使用 
+ */
+uni-page-body {
+  height: 100%;
+}
+.main {
+  background-color: #F2F2F2;
+  width: 100%;
+  height: 100%;
+}
+.main .user_info {
+  padding: 40rpx;
+  background-color: #FFF;
+  width: 100%;
+  height: 430rpx;
+  overflow: hidden;
+  border-bottom: 8rpx solid #FFD6A2;
+}
+.main .user_info .top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.main .user_info .left {
+  display: flex;
+  width: 70%;
+  height: 100rpx;
+}
+.main .user_info .left .user_right {
+  margin-left: 40rpx;
+}
+.main .user_info .left .user_right .nick_name {
+  font-size: 40rpx;
+}
+.main .user_info .left .user_right .time {
+  margin-top: 20rpx;
+  color: #959595;
+  font-size: 20rpx;
+}
+.main .user_info .left .img {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 100rpx;
+}
+.main .vip {
+  margin-top: 60rpx;
+  display: flex;
+  margin-left: 15rpx;
+  padding: 30rpx;
+  width: 96%;
+  height: 240rpx;
+  border-radius: 20rpx;
+  background-color: #3A3C44;
+  color: #fff;
+  flex-direction: column;
+}
+.main .vip .vip_top {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 50rpx;
+}
+.main .vip .vip_top .vip_left {
+  display: flex;
+}
+.main .vip .vip_top .type {
+  line-height: 50rpx;
+  font-size: 35rpx;
+  color: #F9C786;
+}
+.main .vip .vip_top .right {
+  line-height: 50rpx;
+  font-size: 13rpx;
+  color: #BFBFBF;
+}
+.main .vip .progress {
+  margin-left: 30rpx;
+  margin-top: 20rpx;
+  width: 90%;
+  height: 5rpx;
+  display: flex;
+}
+.main .vip .progress:first-child {
+  background-color: #F9C786;
+}
+.main .vip .progress .spot {
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 20rpx;
+  background-color: #fff;
+}
+.main .vip .progress .line {
+  margin-left: 1rpx;
+  margin-right: 1rpx;
+  margin-top: 2rpx;
+  width: 180rpx;
+  height: 10rpx;
+  background-color: #fff;
+}
+.main .vip_icon {
+  color: #F9C786;
+  font-size: 60rpx;
+}
+.main .coupon {
+  height: 140rpx;
+  margin-top: 20rpx;
+  background-color: #fff;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.main .coupon .coupon_inf {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.main .order {
+  height: 250rpx;
+  margin-top: 20rpx;
+  background-color: #fff;
+}
+.main .order .top {
+  width: 100%;
+  height: 20rpx;
+  padding-top: 30rpx;
+  display: flex;
+  justify-content: space-between;
+}
+.main .order .top .top_left {
+  margin-left: 40rpx;
+}
+.main .order .top .top_right {
+  padding-top: 20rpx;
+  display: flex;
+  align-items: center;
+  color: #BFBFBF;
+}
+.main .order .icon_item {
+  margin-top: 40rpx;
+  display: flex;
+}
+.main .order .icon_item .icon_lists {
+  width: 200rpx;
+  height: 90rpx;
+  text-align: center;
+  line-height: 90rpx;
+  font-size: 30rpx;
+}
+.main .order .icon_item .icon_lists .u-icon__img {
+  margin-top: 20rpx;
+  font-size: 60rpx;
+}
+.main .order .icon_item .icon_lists .text {
+  margin-top: -30rpx;
+}
+.main .activity {
+  height: 180rpx;
+  margin-top: 20rpx;
+  background-color: #fff;
+  display: flex;
+  padding-top: 40rpx;
+}
+.main .activity .icon_lists {
+  margin-left: 30rpx;
+  width: 150rpx;
+  height: 90rpx;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.main .activity .icon_lists .u-icon__img {
+  font-size: 60rpx;
+}
+.main .activity .icon_lists .text {
+  text-align: center;
+  font-size: 13rpx;
+  margin-top: 20rpx;
+}
+

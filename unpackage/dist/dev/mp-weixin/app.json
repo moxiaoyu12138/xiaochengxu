@@ -1,7 +1,9 @@
 {
   "pages": [
     "pages/example/components",
-    "uview-ui/components/u-avatar-cropper/u-avatar-cropper"
+    "pages/example/goosCar",
+    "pages/user/user",
+    "pages/example/size/size"
   ],
   "subPackages": [],
   "window": {
@@ -10,19 +12,6 @@
     "navigationBarBackgroundColor": "#FFFFFF",
     "backgroundColor": "#FFFFFF"
   },
-  "tabBar": {
-    "color": "#909399",
-    "selectedColor": "#303133",
-    "backgroundColor": "#FFFFFF",
-    "borderStyle": "black",
-    "list": [
-      {
-        "pagePath": "pages/example/components",
-        "iconPath": "static/uview/example/component.png",
-        "selectedIconPath": "static/uview/example/component_select.png",
-        "text": "组件"
-      }
-    ]
-  },
-  "usingComponents": {}
+  "usingComponents": {},
+  "sitemapLocation": "sitemap.json"
 }

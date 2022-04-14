@@ -1,0 +1,70 @@
+@charset "UTF-8";
+/**
+ * 下方引入的为uView UI的集成样式文件，为scss预处理器，其中包含了一些"u-"开头的自定义变量
+ * 使用的时候，请将下面的一行复制到您的uniapp项目根目录的uni.scss中即可
+ * uView自定义的css类名和scss变量，均以"u-"开头，不会造成冲突，请放心使用 
+ */
+.mian.data-v-16d8e2c1 {
+  background: transparent;
+}
+.mian .hidden.data-v-16d8e2c1 {
+  width: 100%;
+  height: 100rpx;
+  background: transparent;
+}
+.mian .top.data-v-16d8e2c1 {
+  position: relative;
+  height: 160rpx;
+  display: flex;
+  background-color: #fff;
+}
+.mian .top .img.data-v-16d8e2c1 {
+  position: absolute;
+  top: -60rpx;
+  left: 20rpx;
+  z-index: 1;
+  width: 200rpx;
+  height: 200rpx;
+  background-color: skyblue;
+}
+.mian .top .img .pic.data-v-16d8e2c1 {
+  width: 200rpx;
+  height: 200rpx;
+}
+.mian .top .right.data-v-16d8e2c1 {
+  margin-left: 280rpx;
+  margin-top: 50rpx;
+  width: 100%;
+}
+.mian .top .right .price.data-v-16d8e2c1 {
+  display: flex;
+  justify-content: space-between;
+  display: flex;
+  color: #C53622;
+}
+.mian .top .right .price .left.data-v-16d8e2c1 {
+  display: flex;
+}
+.mian .top .right .price .close.data-v-16d8e2c1 {
+  color: #000000;
+}
+.mian .top .right .size.data-v-16d8e2c1 {
+  background-color: #fff;
+}
+.mian .color-box.data-v-16d8e2c1 {
+  height: 140rpx;
+  background-color: skyblue;
+}
+.mian .size.data-v-16d8e2c1 {
+  background-color: pink;
+}
+.mian .number.data-v-16d8e2c1 {
+  height: 50rpx;
+  background-color: skyblue;
+  border-bottom: 1rpx solid #F5F5F5;
+}
+.mian .u-button.data-v-16d8e2c1 {
+  height: 140rpx;
+  background-color: pink;
+}
+

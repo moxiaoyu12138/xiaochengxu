@@ -35,11 +35,13 @@
             
         }
         
+        
         ,{
-            "path" : "pages/example/size/size",
+            "path" : "pages/check/check",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "size"
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
             }
             
         }

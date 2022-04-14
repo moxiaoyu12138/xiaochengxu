@@ -11,11 +11,20 @@
 		<view class="goos_list">
 			<view class="shop">
 				<view class="left">
-					<view class="s_show" >
-						<u-icon  size="30" name="checkbox-mark"  class="s_show_icon_one" v-if="this.show.goos"> </u-icon>
+					<view class="s_show" @click="onGoosShow()">
+						<u-icon  
+						size="30" 
+						name="checkbox-mark"  
+						class="s_show_icon_one" 
+						v-if="this.show.goos"
+						> </u-icon>
 					</view>
 					<view class="shop_info">
-						<u-icon  size="40" :name="this.icon[1].src"  class="s_show_icon" ></u-icon>
+						<u-icon  
+						size="40" 
+						:name="this.icon[1].src"  
+						class="s_show_icon" 
+						></u-icon>
 						<view class="shop_info_name">
 							{{this.gootList[0].shop}}
 						</view>
@@ -28,12 +37,19 @@
 			</view>
 			<view class="goods_caras" >
 				<view class="goos_caras_list" v-for="(item,index) in gootList" :key="index">
-					<view class="icon">
-						<u-icon  size="30" name="checkbox-mark"  class="s_show_icon_one" > </u-icon>
+					<view class="icon"
+					@click="onGooSList(index)"
+					>
+						<u-icon  
+						size="30" 
+						name="checkbox-mark"  
+						class="s_show_icon_one" 
+						v-if="item.show"
+						> </u-icon>
 					</view>
 					<view class="goods_inf">
 						<view class="goods_inf_pic">
-							<img src="http://xiaoyuaichitang.xyz/view.php/884ece8fe0651f1f453719e36be90c8c.jpg"></img>
+							<img class="goods_inf_pic_img" src="http://xiaoyuaichitang.xyz/view.php/884ece8fe0651f1f453719e36be90c8c.jpg"></img>
 						</view>
 						<view class="goos_right" >
 							<view class="title" >
@@ -60,56 +76,57 @@
 					</view>
 				</view>
 			</view>
-			<u-popup v-model="isShow"
-			mode="bottom" width="500rpx" 
-			height="300px" class="popup" 
-			@close="onLog()">
-				<view class="hidden">
-					
-				</view>
-					<view class="top" >
-						<!-- <u-image width="30%" height="120px" :src="this.gootList[0].pic" mode="aspectFit" class="pic"></u-image> -->
-						<view class="img">
-							<img :src="this.gootList[0].pic" class="pic"/>
-						</view>
-						<view class="right">
-							<view class="price">
-								<view class="left">
-									<u-icon name="rmb" size="28"></u-icon>
-									<view class="price_p">
-										{{this.gootList[0].price}}
-									</view>
-								</view>
-								<view class="close">
-									<u-icon name="close" size="20px" @click="isshow"></u-icon>
-								</view>
-							</view>
-							<view class="size">
-								<view class="size_info">
-									{{this.gootList[0].size}},
-									{{this.gootList[0].number}}件
-								</view>
-							</view>
-							
-						</view>
-					</view>
-					<view class="color-box">
-						color-box
-					</view>
-					<view class="size">
-						size
-					</view>
-					<view class="number">
-						number
-					</view>
-					<view class="u-button">
-						确认
-					</view>
-				</u-popup>
+			<u-popup v-model="isShow" mode="bottom" width="500rpx" height="500px" >
+				<size :comSize="comSize" v-on:show="closeSize"></size>
+			</u-popup>
 		</view>
+		
+		<view class="goos_list">
+			<view class="shop">
+				<view class="left">
+					<view class="s_show" @click="onGoosShow()">
+						<u-icon  
+						size="30" 
+						name="checkbox-mark"  
+						class="s_show_icon_one" 
+						v-if="this.show.goos"
+						> </u-icon>
+					</view>
+					<view class="shop_info">
+						<u-icon  
+						size="40" 
+						:name="this.icon[1].src"  
+						class="s_show_icon" 
+						></u-icon>
+						<view class="shop_info_name">
+							{{this.gootList[0].shop}}
+						</view>
+						<u-icon  size="30" :name="this.icon[9].src"  class="s_show_icon"></u-icon>
+					</view>
+				</view>
+				<view class="shop_button">
+					清空
+				</view>
+			</view>
+			<CommodityCard :goosListTwo="goosListTwo"></CommodityCard>
+			<u-popup v-model="isShow" mode="bottom" width="500rpx" height="500px" >
+				<size :comSize="comSize" v-on:show="closeSize"></size>
+			</u-popup>
+		</view>
+		
+	
 		<view class="buttom">
 			<view class="u-button">
-				<u-icon  size="40" color="#F8C02F" name="checkbox-mark" @click="onTopShow" class="buttom_icon"></u-icon>
+				<view class="all_btn"
+				@click="onTopAll">
+					<u-icon
+						size="40" 
+						color="#F8C02F" 
+						name="checkbox-mark" 
+						 class="buttom_icon" v-if="this.show.all">
+					</u-icon>
+				</view>
+				
 				<view class="text">
 					全选
 				</view>
@@ -132,19 +149,54 @@
 </template>
 
 <script>
-	import SizePopup from './size/size'
+	import CommodityCard from '../../components/commodity-card/commodity-card.vue'
+	import Size from '../../components/size/size.vue'
+	import gootList from '../../components/goot-list/goot-list.vue'
 	export default {
-		  components: {
-		      SizePopup
-		    },
-		
+		components:{
+			Size,
+			CommodityCard,
+			gootList
+		},
 		data() {
 			return {
+				comSize:'',
 				isShow:false,
+				goosNum:0,
+				size:[
+					{
+						name:"S"
+					},
+					{
+						name:"M"
+					},
+					{
+						name:"L"
+					},
+					{
+						name:"XL"
+					},
+					{
+						name:"2XL"
+					},
+					{
+						name:"3XL"
+					}
+				],
+				color: [
+					{
+						name:'默认'
+					},
+					{
+						name:'红色'
+					}
+				],
 				show:{
 						top:true,
-						goos:false,
-						sizeChose: false
+						goos:true,
+						goosList: false,
+						sizeChose: false,
+						all:true
 					},
 				icon:[
 					{	
@@ -213,31 +265,80 @@
 						number: '1',
 						shop:'滔博佛山禅城王府井AD',
 						discount:'true',
-						discount_price:'299'
+						discount_price:'299',
+						show: 'false',
+						pic:'http://xiaoyuaichitang.xyz/view.php/884ece8fe0651f1f453719e36be90c8c.jpg'
 					},
-					{
-						id:'0',
-						title: '阿迪达斯MIC ROSE CREW 男士休闲圆领卫衣',
-						size:'默认;M',
-						price: '599',
-						number: '1',
-						shop:'滔博佛山禅城王府井AD',
-						discount:'true',
-						discount_price:'299'
-					},
-					
-					
 				],
-				imgList: 'http://xiaoyuaichitang.xyz/view.php/884ece8fe0651f1f453719e36be90c8c.jpg'
+				goosListTwo: {
+					shop:{
+						id:'0',
+						name:'滔博佛山禅城王府井AD',
+						show:false,
+						goosListInfo: [
+							{
+								id:'0',
+								title: '阿迪达斯MIC ROSE CREW 男士休闲圆领卫衣',
+								size:'默认;M',
+								price: '599',
+								number: '1',
+								discount_price:'299',
+								show: false,
+								pic:'http://xiaoyuaichitang.xyz/view.php/884ece8fe0651f1f453719e36be90c8c.jpg'
+							},
+							{
+								id:'0',
+								title: '阿迪达斯MIC ROSE CREW 男士休闲圆领卫衣',
+								size:'默认;M',
+								price: '599',
+								number: '1',
+								discount_price:'299',
+								show: false,
+								pic:'http://xiaoyuaichitang.xyz/view.php/884ece8fe0651f1f453719e36be90c8c.jpg'
+							},
+						]
+					}
+				},
 			};
 		},
+		created() {
+			// 启动页面开始传递组件值
+			this.toSize()
+		},
 		methods:{
+			
+			// 关闭上方提示按钮
 			onTopShow() {
-				this.show[0].top = false
+				this.show.top = !this.show.top
 			},
-			sizeShow() {
+			onGoosShow() {
+				this.show.goos = !this.show.goos
+				// this.$emit()
+				this.goosListTwo.shop.goosListInfo.show
+				console.log(this.goosListTwo.shop.goosListInfo[0].show)
+				// for(let i; i<this.this.goosListTwo.shop.goosListInfo.length ; i++) {
+				// 	this.goosListTwo.shop.goosListInfo[i].show = !this.show.goos
+				// }
+			},
+			// 根据id关闭商品列表
+			onGooSList(index) {
+				this.gootList[index].show = !this.gootList[index].show
+			},
+			// 全部选中关闭
+			onTopAll() {
+				this.show.all = !this.show.all
+				this.show.goos = this.show.all
+			},
+			// 打开，关闭尺寸选择
+			sizeShow () {
 				this.isShow = true
-				console.log(this.show.sizeChose);
+			},
+			closeSize() {
+				this.isShow = false
+			},
+			// 定义组件传值
+			toSize(){
+				this.comSize = this.gootList[0]
 			},
 			
 		}
@@ -262,17 +363,17 @@ uni-page-body{
 		height: 100rpx;
 		background-color: #FFFDF0;
 		.tipe_text{
-			width: 90%;
-			font-size: 12rpx;
+			padding-left: 10rpx;
+			width: 92%;
+			font-size: 13px;
 			color: #D4A02D;
 		}
 	}
 	.goos_list{
-		margin-top: 20rpx;
+		margin-top: 30rpx;
 		padding: 40rpx;
 		width: 100%;
 		background-color: #ffffff;
-		// margin-bottom: 150rpx;
 		.shop{
 			display: flex;
 			flex-direction: row;
@@ -289,17 +390,17 @@ uni-page-body{
 					height: 100%;
 					border-radius: 50rpx;
 					color: #F8C02F;
-					background-color: #404040;
+					background-color: #404040 !important;
 					justify-content: center;
 				}
 				width: 80%;
 				display: flex;
 				.s_show{
-					width: 50rpx;
-					height: 50rpx;
+					width: 48rpx;
+					height: 48rpx;
 					text-align: center;
-					line-height: 50rpx;
-					border-radius: 30rpx;
+					line-height: 48rpx;
+					border-radius: 48rpx;
 					border: 1rpx solid #ccc;
 				}
 				.shop_info{
@@ -307,7 +408,6 @@ uni-page-body{
 					align-items: center;
 					margin-top: 5rpx;
 					margin-left: 30rpx;
-					font-weight: 550;
 					font-size: 30rpx;
 					.shop_info_name{
 						margin-left: 10rpx;
@@ -319,42 +419,51 @@ uni-page-body{
 			}
 		}
 		.goods_caras{
-			margin-top: 20rpx;
+			margin-top: 30rpx;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 			width: 100%;
-			margin-bottom: 25rpx;
+			
 			.goos_caras_list{
 				width: 100%;
 				display: flex;
 				align-items: center;
 				.icon{
-					width: 50rpx;
-					height: 50rpx;
-					background-color:#404040;
-					border-radius: 50rpx;
+					width: 48rpx;
+					height: 48rpx;
+					border: 1rpx solid #CDCDCD;
+					border-radius: 48rpx;
 					text-align: center;
-					line-height: 50rpx;
+					line-height: 48rpx;
 					color: #F8C034;
+					.s_show_icon_one{
+						height: 100%;
+						width: 100%;
+						border-radius: 50rpx;
+						text-align: center;
+						justify-content: center;
+						line-height: 50rpx;
+						background-color:#404040;
+					}
 				}
 				.goods_inf{
-					padding: 30rpx;
 					width: 90%;
-					height: 300rpx;
+					height: 240rpx;
 					margin-bottom: 10rpx;
 					display: flex;
 					.goods_inf_pic{
+						margin-left: 30rpx;
 						margin-right: 20rpx;
-						width: 300rpx;
-						height: 240rpx;
+						width: 240rpx;
+						height: 200rpx;
 						img{
 							width: 100%;
 							height: 100%;
 						}
 					}
 					.goos_right{
-						width: 100%;
+						width: 500rpx;
 						height: 100%;
 						display: flex;
 						flex-direction: column;
@@ -364,24 +473,28 @@ uni-page-body{
 							margin-bottom: 20rpx;
 						}
 						.size_button{
-							width: 150rpx;
+							width: 120rpx;
 							height: 50rpx;
+							font-size: 12rpx;
 							border-radius: 10rpx;
+							background-color: #F5F5F5;
 							display: flex;
-							justify-content: space-between;
+							justify-content: space-evenly;
+							align-items: center;
 						}
 						.size_buttom{
+							margin-top: 20rpx;
 							display: flex;
-							align-items: center;
-							justify-content: space-between;
 							width: 100%;
-							height: 100rpx;
+							justify-content: space-between;
 						}
 					}
 				}
 			}
 		}
+	
 	}
+	
 	.buttom{
 		position: fixed;
 		bottom: 0;
@@ -396,6 +509,12 @@ uni-page-body{
 		.u-button{
 			display: flex;
 			align-items: center;
+			.all_btn{
+				width: 50rpx;
+				height: 50rpx;
+				border:1rpx solid #ccc;
+				border-radius: 50rpx;
+			}
 			.buttom_icon{
 				text-align: center;
 				background-color: #404040;
@@ -436,17 +555,18 @@ uni-page-body{
 		
 	}
 	.popup{
+		.title{
+			color: #8C8C8C;
+		}
 		background: transparent;
 		.hidden{
 			width: 100%;
 			height: 100rpx;
 			background: transparent;
-		
-		
 		}
 		.top{
 			position: relative;
-			height: 160rpx;
+			height: 260rpx;
 			display: flex;
 			background-color: #fff;
 			.img{
@@ -454,20 +574,21 @@ uni-page-body{
 				top: -60rpx;
 				left: 20rpx;
 				z-index: 1;
-				width: 200rpx;
-				height: 200rpx;
+				width: 240rpx;
+				height: 240rpx;
 				background-color: skyblue;
 				.pic{
-					width: 200rpx;
-					height: 200rpx;
+					width: 240rpx;
+					height: 240rpx;
 				}
 			}
 			.right{
-				margin-left: 280rpx;
+				margin-left: 330rpx;
 				margin-top: 50rpx;
 				width: 100%;
 				.price{
-					
+					margin-bottom: 20rpx;
+					font-size: 40rpx;
 					display: flex;
 					justify-content: space-between;
 					display: flex;
@@ -476,30 +597,72 @@ uni-page-body{
 						display: flex;
 					}
 					.close{
-						color: #000000;
+						margin-right: 20rpx;
+						color: #545454;
 					}
 				}
 				.size{
+					font-size: 28rpx;
 					background-color: #fff;
-					
+					.size_info{
+						font-size: #A4A4A4;
+					}
 				}
 			}
 		}
-		.color-box{
-			height: 140rpx;
-			background-color: skyblue;
+		.color{
+			padding-left: 20rpx;
+			height: 160rpx;
+			background-color: #fff;
+			.color-box{
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				width: 100%;
+				height: 100%;
+				.color-item{
+					width: 140rpx;
+					height: 80rpx;
+					text-align: center;
+					line-height: 80rpx;
+					font-size: 30rpx;
+					border: 1rpx solid #F8C02F;
+					margin: 20rpx;
+				}
+			}
+			
 		}
-		.size{
-			background-color: pink;
+		.popup_size{
+			height: 300rpx;
+			background-color: #fff;
+			margin-bottom: 200rpx;
 		}
 		.number{
-			height: 50rpx;
-			background-color: skyblue;
+			position: fixed;
+			bottom: 140rpx;
+			width: 100%;
+			height: 70rpx;
+			background-color: #fff;
 			border-bottom: 1rpx solid #F5F5F5;
+			display: flex;
+			justify-content: space-between;
+			padding: 20rpx ;
 		}
 		.u-button{
+			position: fixed;
+			bottom: 0;
+			width: 100%;
 			height: 140rpx;
-			background-color: pink;
+			background-color:#fff;
+			padding: 20rpx 30rpx;
+			.confirm{
+				
+				text-align: center;
+				line-height: 90rpx;
+				font-size: 36rpx;
+				height: 90rpx;
+				background-color: #F8C02F;
+			}
 		}
 		
 	}

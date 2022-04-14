@@ -1,9 +1,8 @@
 {
-  "navigationBarTitleText": "组件",
+  "navigationBarTitleText": "商品详情",
   "usingComponents": {
-    "page-nav": "/components/page-nav/page-nav",
-    "u-cell-group": "/uview-ui/components/u-cell-group/u-cell-group",
-    "u-cell-item": "/uview-ui/components/u-cell-item/u-cell-item",
-    "u-gap": "/uview-ui/components/u-gap/u-gap"
+    "u-swiper": "/uview-ui/components/u-swiper/u-swiper",
+    "u-icon": "/uview-ui/components/u-icon/u-icon",
+    "u-badge": "/uview-ui/components/u-badge/u-badge"
   }
 }

@@ -2,7 +2,7 @@
 	<view class="main">
 		<!-- 顶部轮播图 -->
 		<view class="wrap" >
-			<u-swiper :list="list" mode="rect"  class="content" ></u-swiper>
+			<u-swiper :list="list" mode="rect"  class="content"></u-swiper>
 		</view>
 		<!-- // 商品信息 -->
 		<view class="goods_inf">
@@ -18,24 +18,33 @@
 					{{this.goos_inf.price}}
 				</view>
 			</view>
+			<view class="right">
+				<view class="toutiao toutiao-fenxiang goods_inf_icon">
+					
+				</view>
+			</view>
 		</view>
 		
 		<!-- 服务 -->
 		<view class="server">
-			<view class="server_coupon">
+			<view class="server_coupon" @click="onCoupon">
 				<view class="server_coupon_left">
-					<text>领券</text>
+					<text class="server_text">领券</text>
 				</view>
 				<view class="server_coupon_right">
-					<view class="coupon" v-for="item in serverCoupon">
+					<view class="coupon" 
+					v-for="(item,index) in serverCoupon" :key="index">
 						{{item.name}}
 					</view>
 					<u-icon name="arrow-right"></u-icon>
 				</view>
 			</view>
-			<view class="server_coupon">
+				<u-popup v-model="couponShow" mode="bottom"  height="520px">
+					<coupon></coupon>
+				</u-popup>
+			<view class="server_coupon" @click="show = true">
 				<view class="server_coupon_left">
-					<span>已选</span>
+					<span class="server_text">已选</span>
 				</view>
 				<view class="server_coupon_right">
 					<view class="u-size-default">
@@ -52,10 +61,11 @@
 			</view>
 			<view class="server_coupon">
 				<view class="server_coupon_left">
-					<span>服务说明</span>
+					<span class="server_text">服务说明</span>
 				</view>
 				<view class="server_coupon_right">
-					<view class="server_coupon_right_text" v-for="item in ServiceesDcription">
+					<view class="server_coupon_right_text" 
+					v-for="(item ,index) in ServiceesDcription" :key="index">
 						{{item.name}}
 					</view>
 					<u-icon name="arrow-right"></u-icon>
@@ -80,7 +90,7 @@
 			<view class="details_top">
 				细节展示
 			</view>
-			<view class="details_img" v-for="item in list" >
+			<view class="details_img" v-for="(item,index) in list" :key="index">
 				<image :src="item.image" class="details_img_i"></image>
 			</view>
 		</view>
@@ -102,13 +112,29 @@
 				加入购物车
 			</view>
 		</view>
+		<u-popup 
+		v-model="show" 
+		mode="bottom" 
+		width="500rpx" height="1020rpx" >
+			<size :comSize="comSize" v-on:show="closeSize"></size>
+		</u-popup>
 	</view>
 </template>
 
 <script>
+	import Size from '../../components/size/size.vue'
+	import coupon from '../../components/coupon/coupon.vue'
 	export default {
+		components:{
+			Size,
+			coupon
+		},
 		data() {
 			return {
+				couponShow:false,
+				show:false,
+				comSize:'',
+				schoppingCart:'2',
 				list: [
 						{
 							image: 'http://xiaoyuaichitang.xyz/view.php/884ece8fe0651f1f453719e36be90c8c.jpg',
@@ -133,7 +159,15 @@
 					{
 						title:'ash adidasx epic Emanuel x麦当劳全美高中明星赛篮球运动服',
 						number: 'HI5589',
-						price:'849'
+						price:'849',
+						size:'默认，M',
+						price: '599',
+						number: '1',
+						shop:'滔博佛山禅城王府井AD',
+						discount:'true',
+						discount_price:'299',
+						show: 'false',
+						pic:'http://xiaoyuaichitang.xyz/view.php/24f361fc442a9ede877464da1d319fe9.jpg'
 					},
 				img: [
 					{
@@ -149,7 +183,6 @@
 						src:'http://xiaoyuaichitang.xyz/view.php/5b992882db442f3e9295eec5834dc6ae.png'
 					}
 				],
-				schoppingCart:'2',
 				size:
 					{
 						name:'默认尺码',
@@ -190,6 +223,9 @@
 		computed: {
 			
 		},
+		created() {
+			this.onSize()
+		},
 		
 		methods: {
 			onCart() {
@@ -198,9 +234,17 @@
 				uni.navigateTo({
 					url: '../../pages/example/goosCar'
 				})
-				// console.log(index)
-				// uni.preloadPage({url: "/pages/example/goosCar"});
-				// uni.preloadPage({url: "/pages/example/goosCar"});
+			},
+			// 领取优惠券
+			onCoupon() {
+				this.couponShow = !this.couponShow
+				console.log('123')
+			},
+			onSize() {
+				this.comSize = this.goos_inf
+			},
+			closeSize(e) {
+				this.show = e
 			}
 		}
 	}
@@ -267,7 +311,7 @@
 				
 			}
 			.uicon-shopping-cart-button{
-				width: 400rpx;
+				width: 70%;
 				height: 70rpx;
 				line-height: 70rpx;
 				text-align: center;
@@ -279,7 +323,7 @@
 		height: 500rpx;
 		}
 	.content{
-		height: 500rpx;
+		height: 740rpx;
 		img{
 			height: 500rpx;
 		}
@@ -297,9 +341,12 @@
 	
 	// 商品详情
 	.goods_inf{
-		height: 240rpx;
+		margin-top: 240rpx;
+		height: 330rpx;
 		background-color: #FFFFFF;
-		padding: 30rpx 10rpx 10rpx 20rpx;
+		padding: 50rpx 10rpx 10rpx 30rpx;
+		display: flex;
+		justify-content: space-between;
 		.left{
 			padding-left: 10rpx;
 			width: 550rpx;
@@ -307,20 +354,29 @@
 			// background-color: #fff;
 			.title{
 				line-height: 50rpx;
-				font-size: 30rpx;
+				font-size: 36rpx;
 				font-weight: 600;
 			}
 			.goods_inf_number{
-				margin-top: 10rpx;
-				font-size: 18rpx;
+				margin-top: 50rpx;
+				font-size: 24rpx;
 				color: #8C8C8C;
 			}
 			.goods_inf_price{
-				margin-top: 20rpx;
-				color: #C53622;
+				margin-top: 26rpx;
+				font-size: 40rpx;
+				color: #CF5948;
 			}
 		}
-		
+		.right{
+			margin-top: 20rpx;
+			width: 100rpx;
+			height: 100rpx;
+			.goods_inf_icon{
+				text-align: center;
+				font-size: 40rpx;
+			}
+		}
 	}
 	.server{
 		margin-top: 20rpx;
@@ -329,7 +385,6 @@
 		flex-wrap: nowrap;
 		align-items: flex-start;
 		height: 300rpx;
-		background-color: pink;
 		.server_coupon{
 			display: flex;
 			justify-content: space-between;
@@ -339,6 +394,13 @@
 			background-color: #fff;
 			line-height: 100rpx;
 			border-bottom: 1rpx solid #EFEFEF;
+			.server_coupon_left{
+				font-weight: 500;
+				.server_text{
+					// background-color: pink;
+					font-weight: 600;
+				}
+			}
 			.u-size-default{
 				margin-right: 10rpx;
 			}
@@ -346,7 +408,9 @@
 				display: flex;
 				align-items: center;
 				.coupon{
-					margin-right: 10rpx;
+					margin-right: 20rpx;
+					padding-left: 10rpx;
+					padding-right: 10rpx;
 					height: 40rpx;
 					line-height: 40rpx;
 					font-size: 10rpx;
@@ -395,7 +459,6 @@
 		}
 		.details_img{
 			height: 800rpx;
-			background-color: pink;
 			.details_img_i{
 				width: 100%;
 				height: 100%;
