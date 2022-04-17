@@ -29,7 +29,7 @@
 						class="s_show_icon" 
 						></u-icon>
 						<view class="shop_info_name">
-							{{this.gootList[0].shop}}
+							{{this.goosListTwo.shop.name}}
 						</view>
 						<u-icon  size="30" :name="this.icon[9].src"  class="s_show_icon"></u-icon>
 					</view>
@@ -82,7 +82,7 @@
 									</view>
 								</view>
 								<view class="number">
-									<u-number-box>{{item.number}}</u-number-box>
+									<u-number-box v-model="item.number" @change="valChange(item.number,item.id)"></u-number-box>
 								</view>
 							</view>
 						</view>
@@ -118,8 +118,8 @@
 						{{this.allPrice}}
 					</view>
 				</view>
-				<view class="goshopping">
-					去结算(1)
+				<view class="goshopping" @click="goSettlement">
+					去结算({{this.numAll}})
 				</view>
 			</view>
 			
@@ -137,11 +137,12 @@
 			Size,
 			CommodityCard,
 			gootList,
-			promotion
+			promotion,
 		},
 		data() {
 			return {
-				allPrice:'1797',
+				numAll:0,// 商品数量总数
+				allPrice:0,
 				chengesId:1, // 尺码修改应商品id
 				Promotion:false,
 				sizeName:'',
@@ -255,21 +256,7 @@
 						text:"商品销售价格会根据所选活动发生变化，具体以提交订单展示金额为准"
 					}
 				],
-				gootList: [
-					
-					{
-						id:'0',
-						title: '阿迪达斯MIC ROSE CREW 男士休闲圆领卫衣',
-						size:'默认;M',
-						price: '599',
-						number: '1',
-						shop:'滔博佛山禅城王府井AD',
-						discount:'true',
-						discount_price:'299',
-						show: 'false',
-						pic:'http://xiaoyuaichitang.xyz/view.php/884ece8fe0651f1f453719e36be90c8c.jpg'
-					},
-				],
+				gootList: [],
 				goos_inf:
 					{
 						title:'ash adidasx epic Emanuel x麦当劳全美高中明星赛篮球运动服',
@@ -291,46 +278,52 @@
 						show:false,
 						goosListInfo: [
 							{
-								id:'0',
+								id:0,
 								title: '阿迪达斯MIC ROSE CREW 男士休闲圆领卫衣',
 								size:'默认;M',
 								price: '599',
-								number: '1',
+								number: 0,
 								discount:true,
 								discount_price:'699',
 								show: false,
+								all_price:0,
 								pic:'http://xiaoyuaichitang.xyz/view.php/884ece8fe0651f1f453719e36be90c8c.jpg'
 							},
 							{
-								id:'0',
+								id:1,
 								title: '阿迪达斯MIC ROSE CREW 男士休闲圆领卫衣',
 								size:'默认;M',
 								price: '599',
-								number: '1',
+								number: 0,
 								discount_price:'699',
 								discount:true,
 								show: false,
+								all_price:0,
 								pic:'http://xiaoyuaichitang.xyz/view.php/884ece8fe0651f1f453719e36be90c8c.jpg'
 							},
 							{
-								id:'0',
+								id:2,
 								title: '阿迪达斯MIC ROSE CREW 男士休闲圆领卫衣',
 								size:'默认;M',
 								price: '599',
-								number: '1',
+								number: 0,
 								discount:true,
 								discount_price:'699',
 								show: false,
+								all_price:0,
 								pic:'http://xiaoyuaichitang.xyz/view.php/884ece8fe0651f1f453719e36be90c8c.jpg'
 							},
 						]
 					}
 				},
+			
 			};
 		},
 		created() {
 			// 启动页面开始传递组件值
 			this.toSize()
+			// 初始化goosList
+			this.gootList = this.goosListTwo.shop.goosListInfo
 		},
 		methods:{
 			
@@ -392,6 +385,32 @@
 				const id = this.chengesId
 				this.sizeName = sizeName
 				this.goosListTwo.shop.goosListInfo[id].size = sizeName
+			},
+			// 步进器值改变时调用
+			// item为商品id num为商品数量
+			valChange(num,item) {
+				for(var i =0; i<this.goosListTwo.shop.goosListInfo.length;i++ ) {
+					this.numAll += this.goosListTwo.shop.goosListInfo[item].number
+				}
+					var num2 = 0
+					for(var i=0;i<this.goosListTwo.shop.goosListInfo.length;i++) {
+						if(this.goosListTwo.shop.goosListInfo[i].show == true) {
+							 this.goosListTwo.shop.goosListInfo[item].all_price = this.goosListTwo.shop.goosListInfo[item].price * num
+						}
+					}
+					for(var i=0;i<this.goosListTwo.shop.goosListInfo.length;i++) {
+						if(this.goosListTwo.shop.goosListInfo[i].show == true) {
+							
+						}
+					}
+					// this.allPrice += this.goosListTwo.shop.goosListInfo[item].all_price
+				
+			}
+			,goSettlement() {
+				console.log('213')
+				uni.navigateTo({
+					url:'./components/Settlement'
+				})
 			}
 		}
 	}

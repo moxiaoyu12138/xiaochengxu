@@ -6,14 +6,14 @@
 			</view>
 				<view class="top" >
 					<view class="img">
-						<img :src="goosInfo.pic" class="pic" />
+						<img :src="this.comSize.pic" class="pic" />
 					</view>
 					<view class="right">
 						<view class="price">
 							<view class="left">
 								<u-icon name="rmb" size="28"></u-icon>
 								<view class="price_p">
-									{{this.goosInfo.price}}
+									{{this.comSize.price}}
 								</view>
 							</view>
 							<view class="close">
@@ -22,8 +22,8 @@
 						</view>
 						<view class="size">
 							<view class="size_info">
-								{{this.goosInfo.size}},
-								{{this.goosInfo.number}}
+								{{this.comSize.size}}
+								{{this.comSize.number}}
 								件
 							</view>
 						</view>
@@ -56,7 +56,7 @@
 						购买数量
 					</view>
 					<view class="right">
-						<u-number-box class="number_right">1</u-number-box>
+						<u-number-box class="number_right" @change="valChange" v-model="numberValue">1</u-number-box>
 					</view>
 				</view>
 				<view class="u-button">
@@ -71,15 +71,8 @@
 
 <script>
 	export default {
-		name:"size",
+		name:"size2",
 		props:{
-			goosListTwo:{
-				type:Object,
-				required:false
-			},
-			id: {
-				required:false
-			},
 			comSize: {
 				type:Object,
 				required:false
@@ -87,6 +80,7 @@
 		},
 		data() {
 			return {
+				numberValue:0, // 进步器值
 				active:0,
 				size:[
 					{
@@ -133,8 +127,7 @@
 		},
 		methods:{
 			onLog() {
-				this.goosInfo = this.goosListTwo.shop.goosListInfo[this.id]
-				// console.log(this.goosInfo)
+				
 			},
 			onClose() {
 				this.$emit("show",false)
@@ -150,6 +143,9 @@
 					}
 				}
 				
+			},
+			valChange() {
+				this.$emit("chenge",this.numberValue)
 			}
 		}
 	}

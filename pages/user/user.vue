@@ -56,7 +56,7 @@
 		
 		<!-- 优惠卷，积分栏 -->
 		<view class="coupon">
-			<view class="coupon_inf">
+			<view class="coupon_inf"  @click="gotoCoupon">
 				<view class="number">
 					{{this.coupon.coupon}}
 				</view>
@@ -108,9 +108,38 @@
 		</view>
 		<!-- 活动栏 -->
 		<view class="activity ">
+			
+			<view class="icon_lists" @click="gotoCoupon">
+				<view class="toutiao toutiao-youhuiquan u-icon__img" style="color: red;"></view>
+				<view class="text">优惠券</view>
+			</view>
 			<view class="icon_lists">
-				<view class="toutiao toutiao-tuihuoshouhou u-icon__img"></view>
-				<view class="text">关于滔博运动</view>
+				<view class="toutiao toutiao-choujiang1 u-icon__img" ></view>
+				<view class="text">抽奖</view>
+			</view>
+			<view class="icon_lists">
+				<view class="toutiao toutiao-qiandao u-icon__img"></view>
+				<view class="text">签到</view>
+			</view>
+			<view class="icon_lists">
+				<view class="toutiao toutiao-kefu u-icon__img"></view>
+				<view class="text">客服</view>
+			</view>
+			<view class="icon_lists">
+				<view class="toutiao toutiao-youhuiquan u-icon__img" style="color: red;"></view>
+				<view class="text">优惠券</view>
+			</view>
+			<view class="icon_lists">
+				<view class="toutiao toutiao-choujiang1 u-icon__img" ></view>
+				<view class="text">抽奖</view>
+			</view>
+			<view class="icon_lists">
+				<view class="toutiao toutiao-qiandao u-icon__img"></view>
+				<view class="text">签到</view>
+			</view>
+			<view class="icon_lists">
+				<view class="toutiao toutiao-kefu u-icon__img"></view>
+				<view class="text">客服</view>
 			</view>
 		</view>
 	</view>
@@ -158,6 +187,13 @@
 					}
 				]
 			};
+		}
+		,methods:{
+			gotoCoupon() {
+				uni.navigateTo({
+					url:'components/coupon/coupon'
+				})
+			}
 		}
 	}
 </script>
@@ -353,12 +389,13 @@ uni-page-body{
 		}
 	}
 	.activity{
-		height: 160rpx;
 		margin-top: 14rpx;
 		background-color: #fff;
 		display: flex;
-		padding-top: 40rpx;
+		flex-wrap: wrap;
+		padding-bottom: 40rpx;
 		.icon_lists{
+			margin-top: 40rpx;
 			margin-left: 30rpx;
 			width: 150rpx;
 			height: 90rpx;

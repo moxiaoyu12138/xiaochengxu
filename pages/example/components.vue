@@ -19,7 +19,7 @@
 				</view>
 			</view>
 			<view class="right" @click="onShare">
-				<view class="toutiao toutiao-fenxiang goods_inf_icon">
+				<view class="toutiao toutiao-fenxiang2 goods_inf_icon">
 					
 				</view>
 			</view>
@@ -49,13 +49,13 @@
 				</view>
 				<view class="server_coupon_right">
 					<view class="u-size-default">
-						{{this.size.name}},
+						{{this.goos_inf.name}}
 					</view>
 					<view class="u-size-default">
-						{{this.size.size}},
+						{{this.goos_inf.size}},
 					</view>
 					<view class="u-size-default">
-						{{this.size.number}}件
+						{{this.goos_inf.number2}}件
 					</view>
 					<u-icon name="arrow-right"></u-icon>
 				</view>
@@ -118,19 +118,28 @@
 		v-model="show" 
 		mode="bottom" 
 		width="500rpx" height="520px" >
-			<size :comSize="comSize" v-on:show="closeSize"></size>
+		<size2 :comSize="comSize" v-on:show="closeSize" v-on:sizeChenge="sizeChenge"></size2>
+		</u-popup>
+		<!-- // 分享按钮弹出组件 -->
+		<u-popup
+			v-model="shareShow" 
+			mode="bottom" 
+			width="500rpx" height="200px" >
+				<share v-on:ClosePoster="ClosePoster"></share>
 		</u-popup>
 		
 	</view>
 </template>
 
 <script>
-	import Size from '../../components/size/size.vue'
 	import coupon from '../../components/coupon/coupon.vue'
+	import size2 from '../../components/size2/size2.vue'
+	import share from '../../components/share/share.vue'
 	export default {
 		components:{
-			Size,
-			coupon
+			coupon,
+			size2,
+			share
 		},
 		data() {
 			return {
@@ -167,7 +176,7 @@
 						price:'849',
 						size:'默认，M',
 						price: '599',
-						number: '1',
+						number2: '1',
 						shop:'滔博佛山禅城王府井AD',
 						discount:'true',
 						discount_price:'299',
@@ -188,12 +197,7 @@
 						src:'http://xiaoyuaichitang.xyz/view.php/5b992882db442f3e9295eec5834dc6ae.png'
 					}
 				],
-				size:
-					{
-						name:'默认',
-						size: 'XS',
-						number:'1'
-					},	
+				
 				serverCoupon:[
 					{
 						name: '满1200减120元'
@@ -221,8 +225,49 @@
 				],
 				map:{
 					name:'滔博西安赛格Adidas'
-				}
-				
+				},
+				goosListTwo: {
+					shop:{
+						id:'0',
+						name:'滔博佛山禅城王府井AD',
+						show:false,
+						goosListInfo: [
+							{
+								id:'0',
+								title: '阿迪达斯MIC ROSE CREW 男士休闲圆领卫衣',
+								size:'默认;M',
+								price: '599',
+								number: '1',
+								discount:true,
+								discount_price:'699',
+								show: false,
+								pic:'http://xiaoyuaichitang.xyz/view.php/884ece8fe0651f1f453719e36be90c8c.jpg'
+							},
+							{
+								id:'0',
+								title: '阿迪达斯MIC ROSE CREW 男士休闲圆领卫衣',
+								size:'默认;M',
+								price: '599',
+								number: '1',
+								discount_price:'699',
+								discount:true,
+								show: false,
+								pic:'http://xiaoyuaichitang.xyz/view.php/884ece8fe0651f1f453719e36be90c8c.jpg'
+							},
+							{
+								id:'0',
+								title: '阿迪达斯MIC ROSE CREW 男士休闲圆领卫衣',
+								size:'默认;M',
+								price: '599',
+								number: '1',
+								discount:true,
+								discount_price:'699',
+								show: false,
+								pic:'http://xiaoyuaichitang.xyz/view.php/884ece8fe0651f1f453719e36be90c8c.jpg'
+							},
+						]
+					}
+				},
 			}
 		},
 		computed: {
@@ -260,6 +305,18 @@
 				uni.navigateTo({
 					url: '../../pages/user/user'
 				})
+			},
+			// 改变尺寸
+			sizeChenge(sizeName) {
+				this.goos_inf.size =   sizeName
+			},
+			// 改变进步器的值
+			chenge(num) {
+				this.goos_inf.number = num
+				console.log(num)
+			},
+			ClosePoster(data) {
+				this.shareShow = data
 			}
 		}
 	}

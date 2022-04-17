@@ -45,6 +45,23 @@
             }
             
         }
+        ,{
+            "path" : "pages/user/components/coupon/coupon",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "优惠券",
+                "enablePullDownRefresh": false
+            }
+        }
+        ,{
+            "path" : "pages/example/components/Settlement",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
