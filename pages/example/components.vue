@@ -18,7 +18,7 @@
 					{{this.goos_inf.price}}
 				</view>
 			</view>
-			<view class="right">
+			<view class="right" @click="onShare">
 				<view class="toutiao toutiao-fenxiang goods_inf_icon">
 					
 				</view>
@@ -27,7 +27,7 @@
 		
 		<!-- 服务 -->
 		<view class="server">
-			<view class="server_coupon" @click="onCoupon">
+			<view class="server_coupon" @click="onCoupon" >
 				<view class="server_coupon_left">
 					<text class="server_text">领券</text>
 				</view>
@@ -40,7 +40,8 @@
 				</view>
 			</view>
 				<u-popup v-model="couponShow" mode="bottom"  height="520px">
-					<coupon></coupon>
+					<!-- 优惠券组件 -->
+					<coupon @couponClose="couponClose"></coupon>
 				</u-popup>
 			<view class="server_coupon" @click="show = true">
 				<view class="server_coupon_left">
@@ -96,9 +97,9 @@
 		</view>
 		<view class="buttom">
 			<view class="shop">
-				<u-icon  size="40" :name="this.img[0].src"></u-icon>
+				<u-icon  size="40" :name="this.img[0].src" @click="gotoUser"></u-icon>
 				<view class="text">
-					店铺
+					个人中心
 				</view>
 			</view>
 			<view class="uicon-shopping-cart" @click="onCart(1)">
@@ -112,12 +113,14 @@
 				加入购物车
 			</view>
 		</view>
+		<!-- 尺寸插件 -->
 		<u-popup 
 		v-model="show" 
 		mode="bottom" 
-		width="500rpx" height="1020rpx" >
+		width="500rpx" height="520px" >
 			<size :comSize="comSize" v-on:show="closeSize"></size>
 		</u-popup>
+		
 	</view>
 </template>
 
@@ -131,10 +134,12 @@
 		},
 		data() {
 			return {
+				shareShow:false,
 				couponShow:false,
 				show:false,
 				comSize:'',
 				schoppingCart:'2',
+			
 				list: [
 						{
 							image: 'http://xiaoyuaichitang.xyz/view.php/884ece8fe0651f1f453719e36be90c8c.jpg',
@@ -185,8 +190,8 @@
 				],
 				size:
 					{
-						name:'默认尺码',
-						size: 'XS码',
+						name:'默认',
+						size: 'XS',
 						number:'1'
 					},	
 				serverCoupon:[
@@ -238,13 +243,23 @@
 			// 领取优惠券
 			onCoupon() {
 				this.couponShow = !this.couponShow
-				console.log('123')
+			},
+			couponClose(data) {
+				this.onCoupon()
 			},
 			onSize() {
 				this.comSize = this.goos_inf
 			},
 			closeSize(e) {
 				this.show = e
+			},
+			onShare() {
+				this.shareShow = !this.shareShow
+			},
+			gotoUser() {
+				uni.navigateTo({
+					url: '../../pages/user/user'
+				})
 			}
 		}
 	}

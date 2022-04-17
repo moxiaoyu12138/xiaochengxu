@@ -8,6 +8,9 @@
 			<u-icon  size="20" :name="this.icon[0].src" @click="onTopShow"></u-icon>
 		</view>
 		<!-- 商品列表 -->
+
+		
+		
 		<view class="goos_list">
 			<view class="shop">
 				<view class="left">
@@ -16,7 +19,7 @@
 						size="30" 
 						name="checkbox-mark"  
 						class="s_show_icon_one" 
-						v-if="this.show.goos"
+						v-if="this.goosListTwo.shop.show"
 						> </u-icon>
 					</view>
 					<view class="shop_info">
@@ -36,7 +39,7 @@
 				</view>
 			</view>
 			<view class="goods_caras" >
-				<view class="goos_caras_list" v-for="(item,index) in gootList" :key="index">
+				<view class="goos_caras_list" v-for="(item,index) in goosListTwo.shop.goosListInfo" :key="index">
 					<view class="icon"
 					@click="onGooSList(index)"
 					>
@@ -49,19 +52,29 @@
 					</view>
 					<view class="goods_inf">
 						<view class="goods_inf_pic">
-							<img class="goods_inf_pic_img" src="http://xiaoyuaichitang.xyz/view.php/884ece8fe0651f1f453719e36be90c8c.jpg"></img>
+							<img class="goods_inf_pic_img" :src="item.pic" />
 						</view>
 						<view class="goos_right" >
 							<view class="title" >
 								{{item.title}}
 							</view>
-							<view class="size_button" @click="sizeShow()">
-								{{item.size}}
-								<u-icon  size="10" name="arrow-down"  class="s_show_icon"></u-icon>
+							<view class="botton-item">
+								<view class="size_button" @click="sizeShow()">
+									{{item.size}}
+									<u-icon  size="10" name="arrow-down"  class="s_show_icon"></u-icon>
+								</view>
+								<view class="size_button" @click="promotion()">
+									换促销
+									<u-icon  size="10" name="arrow-down"  class="s_show_icon"></u-icon>
+								</view>
+								<!-- 促销弹窗 -->
+								<u-popup v-model="Promotion" mode="bottom" width="500rpx" height="574rpx" >
+									<promotion :comSize="comSize" v-on:show="closeSize" class="size_button_promotion" style="background-color: #fff;"></promotion>
+								</u-popup>
 							</view>
 							<view class="size_buttom">
-								<view class="price">
-									<u-icon  size="40" name="rmb" color="#C53622"  class="s_show_icon"></u-icon>
+								<view class="price" style="color: #C53622;">
+									<u-icon  size="30" name="rmb" color="#C53622"  class="s_show_icon"></u-icon>
 									{{item.price}}
 									<view class="discount" v-if="item.discount">
 										<u-icon  size="20" name="rmb" color="#8C8C8C"  class="s_show_icon"></u-icon>
@@ -76,45 +89,11 @@
 					</view>
 				</view>
 			</view>
-			<u-popup v-model="isShow" mode="bottom" width="500rpx" height="500px" >
+			<u-popup v-model="isShow" mode="bottom" width="500rpx" height="520px" >
 				<size :comSize="comSize" v-on:show="closeSize"></size>
 			</u-popup>
 		</view>
 		
-		<view class="goos_list">
-			<view class="shop">
-				<view class="left">
-					<view class="s_show" @click="onGoosShow()">
-						<u-icon  
-						size="30" 
-						name="checkbox-mark"  
-						class="s_show_icon_one" 
-						v-if="this.show.goos"
-						> </u-icon>
-					</view>
-					<view class="shop_info">
-						<u-icon  
-						size="40" 
-						:name="this.icon[1].src"  
-						class="s_show_icon" 
-						></u-icon>
-						<view class="shop_info_name">
-							{{this.gootList[0].shop}}
-						</view>
-						<u-icon  size="30" :name="this.icon[9].src"  class="s_show_icon"></u-icon>
-					</view>
-				</view>
-				<view class="shop_button">
-					清空
-				</view>
-			</view>
-			<CommodityCard :goosListTwo="goosListTwo"></CommodityCard>
-			<u-popup v-model="isShow" mode="bottom" width="500rpx" height="500px" >
-				<size :comSize="comSize" v-on:show="closeSize"></size>
-			</u-popup>
-		</view>
-		
-	
 		<view class="buttom">
 			<view class="u-button">
 				<view class="all_btn"
@@ -123,11 +102,11 @@
 						size="40" 
 						color="#F8C02F" 
 						name="checkbox-mark" 
-						 class="buttom_icon" v-if="this.show.all">
+						 class="buttom_icon" v-if="this.goosListTwo.shop.show">
 					</u-icon>
 				</view>
 				
-				<view class="text">
+				<view class="text" >
 					全选
 				</view>
 			</view>
@@ -136,7 +115,7 @@
 					合计： 
 					<u-icon name="rmb" class="rmb"></u-icon>
 					<view class="text">
-						599
+						{{this.allPrice}}
 					</view>
 				</view>
 				<view class="goshopping">
@@ -152,17 +131,36 @@
 	import CommodityCard from '../../components/commodity-card/commodity-card.vue'
 	import Size from '../../components/size/size.vue'
 	import gootList from '../../components/goot-list/goot-list.vue'
+	import promotion from '../../components/promotion/promotion.vue'
 	export default {
 		components:{
 			Size,
 			CommodityCard,
-			gootList
+			gootList,
+			promotion
 		},
 		data() {
 			return {
-				comSize:'',
+				allPrice:'1797',
+				Promotion:false,
+				comSize:[
+					
+					{
+						id:'0',
+						title: '阿迪达斯MIC ROSE CREW 男士休闲圆领卫衣',
+						size:'默认;M',
+						price: '599',
+						number: '1',
+						shop:'滔博佛山禅城王府井AD',
+						discount:'true',
+						discount_price:'299',
+						show: 'false',
+						pic:'http://xiaoyuaichitang.xyz/view.php/884ece8fe0651f1f453719e36be90c8c.jpg'
+					},
+				],
 				isShow:false,
 				goosNum:0,
+				
 				size:[
 					{
 						name:"S"
@@ -270,6 +268,20 @@
 						pic:'http://xiaoyuaichitang.xyz/view.php/884ece8fe0651f1f453719e36be90c8c.jpg'
 					},
 				],
+				goos_inf:
+					{
+						title:'ash adidasx epic Emanuel x麦当劳全美高中明星赛篮球运动服',
+						number: 'HI5589',
+						price:'849',
+						size:'默认，M',
+						price: '599',
+						number: '1',
+						shop:'滔博佛山禅城王府井AD',
+						discount:'true',
+						discount_price:'299',
+						show: 'false',
+						pic:'http://xiaoyuaichitang.xyz/view.php/24f361fc442a9ede877464da1d319fe9.jpg'
+					},
 				goosListTwo: {
 					shop:{
 						id:'0',
@@ -282,7 +294,8 @@
 								size:'默认;M',
 								price: '599',
 								number: '1',
-								discount_price:'299',
+								discount:true,
+								discount_price:'699',
 								show: false,
 								pic:'http://xiaoyuaichitang.xyz/view.php/884ece8fe0651f1f453719e36be90c8c.jpg'
 							},
@@ -292,7 +305,19 @@
 								size:'默认;M',
 								price: '599',
 								number: '1',
-								discount_price:'299',
+								discount_price:'699',
+								discount:true,
+								show: false,
+								pic:'http://xiaoyuaichitang.xyz/view.php/884ece8fe0651f1f453719e36be90c8c.jpg'
+							},
+							{
+								id:'0',
+								title: '阿迪达斯MIC ROSE CREW 男士休闲圆领卫衣',
+								size:'默认;M',
+								price: '599',
+								number: '1',
+								discount:true,
+								discount_price:'699',
 								show: false,
 								pic:'http://xiaoyuaichitang.xyz/view.php/884ece8fe0651f1f453719e36be90c8c.jpg'
 							},
@@ -311,23 +336,39 @@
 			onTopShow() {
 				this.show.top = !this.show.top
 			},
+			
+			// 第二个商店
 			onGoosShow() {
-				this.show.goos = !this.show.goos
-				// this.$emit()
-				this.goosListTwo.shop.goosListInfo.show
-				console.log(this.goosListTwo.shop.goosListInfo[0].show)
-				// for(let i; i<this.this.goosListTwo.shop.goosListInfo.length ; i++) {
-				// 	this.goosListTwo.shop.goosListInfo[i].show = !this.show.goos
-				// }
+				this.goosListTwo.shop.show = !this.goosListTwo.shop.show
+				console.log(this.goosListTwo.shop.goosListInfo.length)
+				for (var i= 0 ; i<=this.goosListTwo.shop.goosListInfo.length ;i++) {
+					this.goosListTwo.shop.goosListInfo[i].show = this.goosListTwo.shop.show
+				}
 			},
-			// 根据id关闭商品列表
-			onGooSList(index) {
-				this.gootList[index].show = !this.gootList[index].show
+			// 根据id关闭商品选中
+			onGooSList(index) { 
+				this.goosListTwo.shop.goosListInfo[index].show = !this.goosListTwo.shop.goosListInfo[index].show
+				// 循环判断是否全部选中,如果全部选中则选中商店的按钮
+				var j = 0 
+				for(var i = 0; i<this.goosListTwo.shop.goosListInfo.length;i++) {
+					if(this.goosListTwo.shop.goosListInfo[i].show == true) {
+						j++
+						if(j == this.goosListTwo.shop.goosListInfo.length) {
+							this.goosListTwo.shop.show = true
+						} 
+					}
+					// 若有一个没选中，则取消商店的选中
+					if(this.goosListTwo.shop.goosListInfo[i].show == false) {
+						this.goosListTwo.shop.show = false
+					}
+				}
 			},
+
+				
+			
 			// 全部选中关闭
 			onTopAll() {
-				this.show.all = !this.show.all
-				this.show.goos = this.show.all
+				this.onGoosShow()
 			},
 			// 打开，关闭尺寸选择
 			sizeShow () {
@@ -335,12 +376,16 @@
 			},
 			closeSize() {
 				this.isShow = false
+				this.Promotion = false
+				console.log('123')
 			},
 			// 定义组件传值
 			toSize(){
 				this.comSize = this.gootList[0]
 			},
-			
+			promotion() {
+				this.Promotion = !this.Promotion
+			}
 		}
 	}
 </script>
@@ -424,9 +469,9 @@ uni-page-body{
 			flex-direction: column;
 			align-items: center;
 			width: 100%;
-			
 			.goos_caras_list{
 				width: 100%;
+				height: 260rpx;
 				display: flex;
 				align-items: center;
 				.icon{
@@ -472,6 +517,18 @@ uni-page-body{
 							color: #888888;
 							margin-bottom: 20rpx;
 						}
+						.botton-item{
+							width: 100%;
+							display: flex;
+							justify-content: space-between;
+							.size_button_promotion{
+								margin-top: 66rpx;
+								height: 574rpx !important;
+								background-color: pink ;
+								position: fixed;
+								width: 100%;
+							}
+						}
 						.size_button{
 							width: 120rpx;
 							height: 50rpx;
@@ -481,6 +538,11 @@ uni-page-body{
 							display: flex;
 							justify-content: space-evenly;
 							align-items: center;
+							.size_button_promotion{
+								width: 100rpx;
+								height: 200rpx;
+								background-color: pink;
+							}
 						}
 						.size_buttom{
 							margin-top: 20rpx;

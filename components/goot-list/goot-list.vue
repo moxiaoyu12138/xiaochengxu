@@ -27,6 +27,7 @@
 			<u-popup v-model="isShow" mode="bottom" width="500rpx" height="500px" >
 				<size :comSize="comSize" v-on:show="closeSize"></size>
 			</u-popup>
+			
 		</view>
 		
 	</view>
