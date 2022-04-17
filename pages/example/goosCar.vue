@@ -59,7 +59,7 @@
 								{{item.title}}
 							</view>
 							<view class="botton-item">
-								<view class="size_button" @click="sizeShow()">
+								<view class="size_button" @click="sizeShow(index)" >
 									{{item.size}}
 									<u-icon  size="10" name="arrow-down"  class="s_show_icon"></u-icon>
 								</view>
@@ -90,7 +90,7 @@
 				</view>
 			</view>
 			<u-popup v-model="isShow" mode="bottom" width="500rpx" height="520px" >
-				<size :comSize="comSize" v-on:show="closeSize"></size>
+				<size :goosListTwo="goosListTwo" :id="this.chengesId" v-on:show="closeSize" v-on:sizeChenge="sizeChenge($event)"></size>
 			</u-popup>
 		</view>
 		
@@ -142,7 +142,9 @@
 		data() {
 			return {
 				allPrice:'1797',
+				chengesId:1, // 尺码修改应商品id
 				Promotion:false,
+				sizeName:'',
 				comSize:[
 					
 					{
@@ -371,13 +373,13 @@
 				this.onGoosShow()
 			},
 			// 打开，关闭尺寸选择
-			sizeShow () {
+			sizeShow (id) {
 				this.isShow = true
+				this.chengesId = id
 			},
 			closeSize() {
 				this.isShow = false
 				this.Promotion = false
-				console.log('123')
 			},
 			// 定义组件传值
 			toSize(){
@@ -385,6 +387,11 @@
 			},
 			promotion() {
 				this.Promotion = !this.Promotion
+			},
+			sizeChenge(sizeName) {
+				const id = this.chengesId
+				this.sizeName = sizeName
+				this.goosListTwo.shop.goosListInfo[id].size = sizeName
 			}
 		}
 	}

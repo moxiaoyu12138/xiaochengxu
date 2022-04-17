@@ -6,24 +6,24 @@
 			</view>
 				<view class="top" >
 					<view class="img">
-						<img :src="this.comSize.pic" class="pic" />
+						<img :src="goosInfo.pic" class="pic" />
 					</view>
 					<view class="right">
 						<view class="price">
 							<view class="left">
 								<u-icon name="rmb" size="28"></u-icon>
 								<view class="price_p">
-									{{this.comSize.price}}
+									{{this.goosInfo.price}}
 								</view>
 							</view>
 							<view class="close">
-								<u-icon name="close" size="20px" @click="onClose"></u-icon>
+								<u-icon name="close" size="20px" @click="onClose()"></u-icon>
 							</view>
 						</view>
 						<view class="size">
 							<view class="size_info">
-								{{this.comSize.size}} ,
-								{{this.comSize.number}}
+								{{this.goosInfo.size}},
+								{{this.goosInfo.number}}
 								件
 							</view>
 						</view>
@@ -45,19 +45,10 @@
 							尺码
 						</view>
 						<view class="color-box">
-							<view class="color-item"  @click="onSize(0)" v-if="this.size[0].Select">S</view>
-							<view class="color-item_none"  @click="onSize(0)" v-else>S </view>
-							<view class="color-item"  @click="onSize(1)" v-if="this.size[1].Select">M</view>
-							<view class="color-item_none"  @click="onSize(1)" v-else>M </view>
-							<view class="color-item"  @click="onSize(2)" v-if="this.size[2].Select">L</view>
-							<view class="color-item_none"  @click="onSize(2)" v-else>L</view>
-							<view class="color-item"  @click="onSize(3)" v-if="this.size[3].Select">XL</view>
-							<view class="color-item_none"  @click="onSize(3)" v-else>XL </view>
-							<view class="color-item"  @click="onSize(4)" v-if="this.size[4].Select">XXL</view>
-							<view class="color-item_none"  @click="onSize(4)" v-else>XXL</view>
-							<view class="color-item"  @click="onSize(5)" v-if="this.size[5].Select">3XL</view>
-							<view class="color-item_none"  @click="onSize(5)" v-else>3XL</view>
 						
+						<view :class="['color-item_none',item.Select ? 'color-item' :'']" v-for="(item,index) in size" :key="index" @click="onSize(index)">
+							{{item.name}}
+						</view>
 						</view>
 					</view>
 				<view class="number">
@@ -65,7 +56,7 @@
 						购买数量
 					</view>
 					<view class="right">
-						<u-number-box class="number_right">{{this.comSize.number}}</u-number-box>
+						<u-number-box class="number_right">1</u-number-box>
 					</view>
 				</view>
 				<view class="u-button">
@@ -80,9 +71,12 @@
 	export default {
 		name:"size",
 		props:{
-			comSize:{
+			goosListTwo:{
 				type:Object,
 				required:true
+			},
+			id: {
+				required:false
 			}
 		},
 		data() {
@@ -91,27 +85,33 @@
 				size:[
 					{
 						name:"S",
-						Select:true
+						Select:true,
+						id:0
 					},
 					{
 						name:"M",
-						Select:false
+						Select:false,
+						id:1
 					},
 					{
 						name:"L",
-						Select:false
+						Select:false,
+						id:2
 					},
 					{
 						name:"XL",
-						Select:false
+						Select:false,
+						id:3
 					},
 					{
 						name:"2XL",
-						Select:false
+						Select:false,
+						id:4
 					},
 					{
 						name:"3XL",
-						Select:false
+						Select:false,
+						id:5
 					}
 				],
 				color: [
@@ -127,7 +127,8 @@
 		},
 		methods:{
 			onLog() {
-				// console.log(this.comSize)
+				this.goosInfo = this.goosListTwo.shop.goosListInfo[this.id]
+				console.log(this.goosInfo)
 			},
 			onClose() {
 				this.$emit("show",false)
@@ -136,9 +137,11 @@
 					icon:'none'
 				})
 			},
+			// 尺码点击
 			onSize(index) {
+				// const name = this.size[index].name
+				this.$emit('sizeChenge','默认，' + this.size[index].name)
 				this.size[index].Select = !this.size[index].Select
-				// index为true，其他的false
 				for(var i=0;i<this.size.length;i++){
 					if(i!=index){
 						this.size[i].Select = false
